@@ -2,15 +2,15 @@ const express = require('express');
 const router = express.Router();
 const Activity = require('../models/Activity');
 
-// POST /api/activities - Create new activity
 router.post('/', async (req, res) => {
-    const { type, location, details, organizer } = req.body;
+    const { type, location, details, organizer, participants } = req.body;
 
     const newActivity = new Activity({
         type,
         location,
         details,
-        organizer
+        organizer,
+        participants: participants || []  // Make sure participants are passed, or use an empty array as default
     });
 
     try {

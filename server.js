@@ -13,9 +13,11 @@ app.use(express.json());
 
 // Import Routes
 const activityRoutes = require('./routes/activities');
+const userRoutes = require('./routes/users');  // Import the user routes
 
 // Use Routes
 app.use('/api/activities', activityRoutes);
+app.use('/api/users', userRoutes);  // Add user routes
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
