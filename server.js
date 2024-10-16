@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const cors = require('cors'); // Import CORS
 
 // Load environment variables
 dotenv.config();
@@ -11,19 +12,19 @@ const app = express();
 // Middleware to parse JSON
 app.use(express.json());
 
+// Enable CORS
+app.use(cors());  // Enable CORS
+
 // Import Routes
 const activityRoutes = require('./routes/activities');
-const userRoutes = require('./routes/users');  // Import the user routes
+const userRoutes = require('./routes/users');
 
 // Use Routes
 app.use('/api/activities', activityRoutes);
-app.use('/api/users', userRoutes);  // Add user routes
+app.use('/api/users', userRoutes);
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
+mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('MongoDB connected'))
     .catch((err) => console.log(err));
 

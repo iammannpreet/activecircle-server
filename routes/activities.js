@@ -31,4 +31,17 @@ router.get('/', async (req, res) => {
     }
 });
 
+// DELETE activity by ID
+router.delete('/:id', async (req, res) => {
+    try {
+        const activity = await Activity.findByIdAndDelete(req.params.id);
+        if (!activity) {
+            return res.status(404).json({ message: 'Activity not found' });
+        }
+        res.json({ message: 'Activity deleted' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 module.exports = router;
