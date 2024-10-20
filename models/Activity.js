@@ -17,6 +17,14 @@ const ActivitySchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    latitude: {
+        type: Number, // Store latitude as a number
+        required: true
+    },
+    longitude: {
+        type: Number, // Store longitude as a number
+        required: true
+    },
     participants: {
         type: [String],
         default: []

@@ -19,26 +19,10 @@ router.get('/', async (req, res) => {
 // POST /api/v1/events - Create a new event
 router.post('/', async (req, res, next) => {
     try {
-        const { type, location, latitude, longitude, organizer } = req.body;
-
-        // Validate event data before saving
-        if (!type || !location || !latitude || !longitude || !organizer) {
-            return res.status(400).json({ error: 'Missing required fields' });
-        }
-
-        const newEvent = new Event({
-            type,
-            location,
-            latitude,
-            longitude,
-            organizer
-        });
-
-        const savedEvent = await newEvent.save();  // Save the event to MongoDB
-        res.status(201).json(savedEvent);
+        const savedEvent = await createEvent(req.body);  // Pass the request body to the service
+        res.status(201).json(savedEvent);  // Return the saved event
     } catch (err) {
-        console.error('Error creating event:', err);
-        next(err);
+        next(err);  // Pass any errors to the centralized error handler
     }
 });
 

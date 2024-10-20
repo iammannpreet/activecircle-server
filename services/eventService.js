@@ -19,5 +19,5 @@ const deleteEventById = async (id) => {
 module.exports = {
     getAllEvents,
     createEvent,
-    deleteEventById  // Ensure this is exported
+    deleteEventById
 };
