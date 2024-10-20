@@ -1,7 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const cors = require('cors'); // Import CORS
+const cors = require('cors');
+const eventRoutes = require('./routes/v1/events');
 
 // Load environment variables
 dotenv.config();
@@ -13,15 +14,17 @@ const app = express();
 app.use(express.json());
 
 // Enable CORS
-app.use(cors());  // Enable CORS
+app.use(cors());
 
-// Import Routes
-const activityRoutes = require('./routes/activities');
-const userRoutes = require('./routes/users');
+// Import versioned Routes
+const v1ActivityRoutes = require('./routes/v1/activities');
+const v1UserRoutes = require('./routes/v1/users');
+const v1EventRoutes = require('./routes/v1/events');
 
-// Use Routes
-app.use('/api/activities', activityRoutes);
-app.use('/api/users', userRoutes);
+// Use versioned routes
+app.use('/api/v1/activities', v1ActivityRoutes);
+app.use('/api/v1/users', v1UserRoutes);
+app.use('/api/v1/events', v1EventRoutes);
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
