@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const eventRoutes = require('./routes/v1/events');
 
 // Load environment variables
 dotenv.config();
@@ -20,11 +19,13 @@ app.use(cors());
 const v1ActivityRoutes = require('./routes/v1/activities');
 const v1UserRoutes = require('./routes/v1/users');
 const v1EventRoutes = require('./routes/v1/events');
+const v1SearchRoutes = require('./routes/v1/search');
 
 // Use versioned routes
 app.use('/api/v1/activities', v1ActivityRoutes);
 app.use('/api/v1/users', v1UserRoutes);
 app.use('/api/v1/events', v1EventRoutes);
+app.use('/api/v1', v1SearchRoutes);
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)

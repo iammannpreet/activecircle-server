@@ -17,7 +17,8 @@ const eventSchema = new Schema({
     longitude: {
         type: Number,
         required: true
-    }, details: {
+    },
+    details: {
         type: String,
         required: true
     },
@@ -30,6 +31,8 @@ const eventSchema = new Schema({
         required: true
     }
 });
+
+eventSchema.index({ type: 'text', location: 'text', details: 'text', organizer: 'text' });
 
 const Events = mongoose.model('Events', eventSchema);
 module.exports = Events;

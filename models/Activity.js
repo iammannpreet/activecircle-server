@@ -18,11 +18,11 @@ const ActivitySchema = new mongoose.Schema({
         required: true
     },
     latitude: {
-        type: Number, // Store latitude as a number
+        type: Number,
         required: true
     },
     longitude: {
-        type: Number, // Store longitude as a number
+        type: Number,
         required: true
     },
     participants: {
@@ -34,5 +34,7 @@ const ActivitySchema = new mongoose.Schema({
         required: true
     }
 });
+
+ActivitySchema.index({ type: 'text', location: 'text', details: 'text', organizer: 'text' });
 
 module.exports = mongoose.model('Activity', ActivitySchema);
