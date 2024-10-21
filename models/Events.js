@@ -18,11 +18,21 @@ const eventSchema = new Schema({
         type: Number,
         required: true
     },
+    details: {
+        type: String,
+        required: true
+    },
     organizer: {
         type: String,
         required: true
+    },
+    date: {
+        type: Date,
+        required: true
     }
 });
+
+eventSchema.index({ type: 'text', location: 'text', details: 'text', organizer: 'text' });
 
 const Events = mongoose.model('Events', eventSchema);
 module.exports = Events;
