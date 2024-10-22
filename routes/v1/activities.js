@@ -13,7 +13,7 @@ router.post('/', async (req, res, next) => {
 });
 
 // GET /api/activities - Get all activities
-router.get('/', async (req, res, next) => {
+router.get('/', async (_req, res, next) => {
     try {
         const activities = await getAllActivities();  // Using the service function
         res.json(activities);
