@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const path = require('path'); // Import the path module
 
 // Load environment variables
 dotenv.config();
@@ -14,6 +15,9 @@ app.use(express.json());
 
 // Enable CORS
 app.use(cors());
+
+// Serve static files from the "public" directory
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // Import versioned Routes
 const v1ActivityRoutes = require('./routes/v1/activities');
@@ -33,5 +37,5 @@ mongoose.connect(process.env.MONGO_URI)
     .catch((err) => console.log(err));
 
 // Start the server
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

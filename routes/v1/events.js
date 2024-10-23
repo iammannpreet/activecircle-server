@@ -7,7 +7,6 @@ const { getAllEvents, createEvent, deleteEventById } = require('../../services/e
 router.get('/', async (req, res) => {
     try {
         const events = await Event.find({});
-        console.log('Events:', events);  // Log the event data
 
         res.status(200).json(events);  // Directly return the events
     } catch (error) {
