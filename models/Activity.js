@@ -34,7 +34,7 @@ const ActivitySchema = new mongoose.Schema({
         required: true
     },
     image: {
-        type: String // Store the relative path to the uploaded image
+        type: String
     }
 });
 

@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const eventSchema = new Schema({
+const eventSchema = new mongoose.Schema({
     type: {
         type: String,
         required: true
@@ -29,10 +28,12 @@ const eventSchema = new Schema({
     date: {
         type: Date,
         required: true
+    },
+    image: {
+        type: String
     }
 });
 
 eventSchema.index({ type: 'text', location: 'text', details: 'text', organizer: 'text' });
 
-const Events = mongoose.model('Events', eventSchema);
-module.exports = Events;
+module.exports = mongoose.model('Events', eventSchema);

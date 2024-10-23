@@ -6,10 +6,10 @@ const { getAllActivities, createActivity, deleteActivityById } = require('../../
 
 // Set up storage using Multer
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
+    destination: (_req, _file, cb) => {
         cb(null, path.join(__dirname, '../../public/uploads/activities'));
     },
-    filename: (req, file, cb) => {
+    filename: (_req, file, cb) => {
         cb(null, `${Date.now()}-${file.originalname}`); // Unique file name with timestamp
     }
 });
@@ -20,21 +20,21 @@ router.post('/', upload.single('image'), async (req, res, next) => {
     try {
         const { type, location, details, organizer, latitude, longitude, date } = req.body;
 
-        const imagePath = req.file ? `/uploads/${req.file.filename}` : '';
+        const imagePath = req.file ? `/uploads/activities/${req.file.filename}` : '';
 
         const activityData = {
             type,
             location,
             details,
             organizer,
-            latitude,
-            longitude,
-            date,
+            latitude: parseFloat(latitude),
+            longitude: parseFloat(longitude),
+            date: new Date(date),
             image: imagePath
         };
 
         // Create the new activity using a service function
-        const savedActivity = await createActivity(newActivity);
+        const savedActivity = await createActivity(activityData);  // Corrected this line
         res.status(201).json(savedActivity);
     } catch (err) {
         console.error("Error creating activity:", err);
