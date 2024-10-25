@@ -17,14 +17,27 @@ const ActivitySchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    latitude: {
+        type: Number,
+        required: true
+    },
+    longitude: {
+        type: Number,
+        required: true
+    },
     participants: {
         type: [String],
         default: []
     },
     date: {
         type: Date,
-        default: Date.now
+        required: true
+    },
+    image: {
+        type: String
     }
 });
+
+ActivitySchema.index({ type: 'text', location: 'text', details: 'text', organizer: 'text' });
 
 module.exports = mongoose.model('Activity', ActivitySchema);
