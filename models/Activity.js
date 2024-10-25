@@ -32,6 +32,9 @@ const ActivitySchema = new mongoose.Schema({
     date: {
         type: Date,
         required: true
+    },
+    image: {
+        type: String
     }
 });
 
