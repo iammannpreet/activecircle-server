@@ -24,12 +24,14 @@ const v1ActivityRoutes = require('./routes/v1/activities');
 const v1UserRoutes = require('./routes/v1/users');
 const v1EventRoutes = require('./routes/v1/events');
 const v1SearchRoutes = require('./routes/v1/search');
+const v1AuthRoutes = require('./routes/v1/auth'); // <-- Import auth routes
 
 // Use versioned routes
 app.use('/api/v1/activities', v1ActivityRoutes);
 app.use('/api/v1/users', v1UserRoutes);
 app.use('/api/v1/events', v1EventRoutes);
 app.use('/api/v1', v1SearchRoutes);
+app.use('/api/v1/auth', v1AuthRoutes); // <-- Add auth route
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
