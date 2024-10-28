@@ -13,6 +13,14 @@ const app = express();
 // Middleware to parse JSON
 app.use(express.json());
 
+// Import the JWT middleware
+const authenticateToken = require('./middleware/autheticationToken'); // Example path, update as needed
+
+// Define a protected route in server.js (or another route file)
+app.get('/api/v1/protected', authenticateToken, (req, res) => {
+    res.json({ message: "You are authorized to view this content" });
+});
+
 // Enable CORS
 app.use(cors());
 
