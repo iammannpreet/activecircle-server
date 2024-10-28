@@ -1,16 +1,13 @@
 const express = require('express');
 const Activity = require('../../models/Activity');
 const Event = require('../../models/Events');
-
 const router = express.Router();
 
-// Unified search for both activities and events
 router.get('/search', async (req, res) => {
     const { query } = req.query;
 
     try {
-        // Use regex for case-insensitive partial matching on multiple fields
-        const regex = new RegExp(query, 'i');  // 'i' for case-insensitive
+        const regex = new RegExp(query, 'i');
 
         const activities = await Activity.find({
             $or: [
@@ -30,7 +27,6 @@ router.get('/search', async (req, res) => {
             ]
         });
 
-        // Combine results from both collections
         const results = [...activities, ...events];
 
         res.status(200).json(results);

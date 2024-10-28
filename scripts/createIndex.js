@@ -1,9 +1,8 @@
-require('dotenv').config();  // Load environment variables from .env
+require('dotenv').config();
 const mongoose = require('mongoose');
 const Activity = require('../models/Activity');
 const Event = require('../models/Events');
 
-// Connect to your MongoDB database
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -13,7 +12,6 @@ mongoose.connect(process.env.MONGO_URI, {
     console.error('MongoDB connection error:', err);
 });
 
-// Create text index for Activities
 Activity.collection.createIndex({
     location: 'text',
     description: 'text',
@@ -23,7 +21,6 @@ Activity.collection.createIndex({
     console.log('Text index created for Activity model');
 }).catch(err => console.error(err));
 
-// Create text index for Events
 Event.collection.createIndex({
     location: 'text',
     description: 'text',
@@ -31,5 +28,5 @@ Event.collection.createIndex({
     title: 'text'
 }).then(() => {
     console.log('Text index created for Event model');
-    mongoose.connection.close(); // Close the connection after index creation
+    mongoose.connection.close();
 }).catch(err => console.error(err));

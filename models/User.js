@@ -8,21 +8,21 @@ const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true  // Ensure that the email is unique in the database
+        unique: true
     },
     password: {
         type: String,
         required: true
     },
     preferences: {
-        type: [String],  // Store an array of activity preferences (e.g., ["Gym", "Yoga"])
+        type: [String],
         default: []
     },
     joinedActivities: {
-        type: [mongoose.Schema.Types.ObjectId],  // Reference to activity IDs the user has joined
-        ref: 'Activity',  // This refers to the Activity model
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Activity',
         default: []
     }
-}, { timestamps: true });  // Automatically manage createdAt and updatedAt fields
+}, { timestamps: true });
 
 module.exports = mongoose.model('User', UserSchema);
