@@ -35,6 +35,11 @@ const ActivitySchema = new mongoose.Schema({
     },
     image: {
         type: String
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId, // Reference to the User model
+        ref: 'User',
+        required: true
     }
 });
 
