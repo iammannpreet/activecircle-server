@@ -31,7 +31,7 @@ const ActivitySchema = new mongoose.Schema({
     },
     image: {
         type: String,
-        default: '' // Optional: Default empty string if no image is provided
+        default: ''
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -40,8 +40,6 @@ const ActivitySchema = new mongoose.Schema({
     }
 });
 
-// Create an index for text search
 ActivitySchema.index({ type: 'text', location: 'text', details: 'text' });
 
-// Check if the model is already compiled, otherwise create and export it
 module.exports = mongoose.models.Activity || mongoose.model('Activity', ActivitySchema);

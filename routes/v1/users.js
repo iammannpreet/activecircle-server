@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const { createUser, getUserById, getAllUsers, deleteUserById } = require('../../services/userService');
 
-// POST /api/v1/users/register - Register a new user
 router.post('/register', async (req, res, next) => {
     try {
         const savedUser = await createUser(req.body);
@@ -12,7 +11,6 @@ router.post('/register', async (req, res, next) => {
     }
 });
 
-// GET /api/v1/users/:id - Get a user by ID
 router.get('/:id', async (req, res, next) => {
     try {
         const user = await getUserById(req.params.id);
