@@ -1,10 +1,9 @@
-// server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const path = require('path');
-const helmet = require('helmet'); // Add helmet for security
+const helmet = require('helmet');
 const authenticateToken = require('./middleware/autheticateToken');
 const errorHandler = require('./middleware/errorHandler');
 
@@ -14,17 +13,25 @@ dotenv.config();
 // Initialize Express
 const app = express();
 
-// Middleware to parse JSON
-app.use(express.json());
-
-// Enable CORS
-app.use(cors());
-
 // Set security HTTP headers with Helmet
 app.use(helmet());
 
-// Serve static files from the "public" directory
-app.use('/public', express.static(path.join(__dirname, 'public')));
+// Enable CORS with frontend origin
+app.use(cors({
+    origin: 'http://localhost:3000', // Replace with your frontend URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+// Middleware to parse JSON
+app.use(express.json());
+
+// Serve static files from the "public" directory with explicit CORS headers
+app.use('/public', express.static(path.join(__dirname, 'public'), {
+    setHeaders: (res, path) => {
+        res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+    }
+}));
 
 // Import versioned Routes
 const v1ActivityRoutes = require('./routes/v1/activities');
@@ -48,7 +55,7 @@ mongoose.connect(process.env.MONGO_URI, {
     .then(() => console.log('MongoDB connected'))
     .catch((err) => {
         console.error('MongoDB connection error:', err);
-        process.exit(1); // Exit process with failure code if connection fails
+        process.exit(1);
     });
 
 // Test protected route
@@ -63,7 +70,7 @@ app.use(errorHandler);
 const shutdown = () => {
     mongoose.connection.close(() => {
         console.log('MongoDB connection closed');
-        process.exit(0); // Exit process with success code
+        process.exit(0);
     });
 };
 

@@ -41,7 +41,8 @@ router.post('/', authenticateToken, upload.single('image'), async (req, res, nex
             longitude: parseFloat(longitude),
             date: new Date(date),
             image: imagePath,
-            user: req.user.id,
+            user: req.user.id,            // User ID
+            organizerName: req.user.name,  // Organizer's name
         };
 
         const savedActivity = await createActivity(activityData);

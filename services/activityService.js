@@ -3,8 +3,9 @@ const Activity = require('../models/Activity');
 
 // Get all activities
 const getAllActivities = async () => {
-    return await Activity.find();
+    return await Activity.find().populate('user', 'name');
 };
+
 
 // Create a new activity
 const createActivity = async (activityData) => {

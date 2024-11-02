@@ -6,8 +6,9 @@ const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key';
 
 const generateToken = (user) => {
-    return jwt.sign(user, JWT_SECRET, { expiresIn: '1h' }); // Token valid for 1 hour
+    return jwt.sign({ id: user.id, name: user.name, email: user.email }, JWT_SECRET, { expiresIn: '1h' });
 };
+
 
 router.post('/register', async (req, res) => {
     const { name, email, password } = req.body;
@@ -48,7 +49,7 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        const token = generateToken({ id: user._id, email: user.email });
+        const token = generateToken({ id: user._id, name: user.name, email: user.email });
 
         res.json({ token, user: { id: user._id, name: user.name, email: user.email } });
     } catch (error) {
