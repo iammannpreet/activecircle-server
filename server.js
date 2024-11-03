@@ -18,7 +18,7 @@ app.use(helmet());
 
 // Enable CORS with frontend origin
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://<your-netlify-site>.netlify.app'], // Replace <your-netlify-site> with your actual Netlify domain
+    origin: ['http://localhost:3000', 'https://deluxe-banoffee-13d115.netlify.app'], // Replace <your-netlify-site> with your actual Netlify domain
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
